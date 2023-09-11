@@ -1,0 +1,7 @@
+FROM node:16.17.1-alpine3.16 as build
+EXPOSE 3001
+WORKDIR /usr/app
+COPY . /usr/app
+RUN npm ci
+ENV MONGO_DB_SERVER=mongodb://root:example@mongo:27017/
+CMD [ "npm", "run", "start" ]
