@@ -1,0 +1,55 @@
+version: '3'
+services:
+
+  react-app:
+    container_name: react-app
+    build:
+      context: .
+      dockerfile: Dockerfile.react
+    ports:
+      - "80:80"
+    # volumes:
+    #   - ./react-app:/app
+    networks:
+      - app-network
+
+  nodejs-server:
+    container_name: nodejs-server
+    build:
+      context: ./server
+      dockerfile: Dockerfile.node
+    ports:
+      - "3001:3001"
+    # volumes:
+    #   - ./nodejs-server:/app
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - app-network
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8080:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

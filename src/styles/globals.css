@@ -1,0 +1,35 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+.scroll_gray::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.scroll_gray::-webkit-scrollbar-track {
+  position: relative;
+  right: 5px;
+}
+
+.scroll_gray::-webkit-scrollbar-thumb {
+  background-color: #b7c2d0;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar {
+  overflow: hidden;
+  width: 0;
+}
+
+body::-webkit-scrollbar-track {
+  overflow: hidden;
+}
+
+body::-webkit-scrollbar-thumb {
+  overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+  .my_container {
+    padding-right: 0 !important ;
+  }
+}
